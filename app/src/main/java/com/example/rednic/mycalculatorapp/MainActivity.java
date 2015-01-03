@@ -191,7 +191,7 @@ public class MainActivity extends ActionBarActivity {
                     bottom =Integer.parseInt(calcArea.getText().toString());
                     operand = "add";
                     ans = top + bottom;
-                    //comment for git
+                    //comment for git added more to comment to make sure git works
                     resultsArea.setText("The answer is "+ans);
                     //resultsArea.setVisibility(View.VISIBLE);
                     Toast toast = Toast.makeText(getApplicationContext(), "The Answer is " + ans, Toast.LENGTH_LONG);

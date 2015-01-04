@@ -6,17 +6,20 @@
     tools:context=".MainActivity"
     android:weightSum="9">
     <TextView
+        android:id="@+id/topCalcArea"
         android:text=""
+        android:textColor="#000000"
         android:textSize="30sp"
         android:gravity="bottom|right"
-        android:id="@+id/topCalcArea"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"
         android:layout_weight="1"/>
     <TextView
+        android:maxLength="32"
         android:id="@+id/bottomCalcArea"
+        android:textColor="#000000"
         android:text="0"
         android:gravity="bottom|right"
         android:textSize="30sp"
@@ -26,8 +29,9 @@
         android:paddingRight="10dp"
         />
     <TextView
-        android:visibility="invisible"
         android:id="@+id/result"
+        android:visibility="invisible"
+        android:textColor="#000000"
         android:text="0"
         android:gravity="bottom|right"
         android:textSize="30sp"
@@ -61,7 +65,7 @@
                 android:layout_height="wrap_content" />
             <Button
                 android:id="@+id/backspaceBtn"
-                android:text="Bkspc"
+                android:text="bkspc"
                 android:layout_toRightOf="@+id/multiplyBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />

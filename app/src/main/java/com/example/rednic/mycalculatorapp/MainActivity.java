@@ -2,6 +2,7 @@ package com.example.rednic.mycalculatorapp;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -31,9 +32,12 @@ public class MainActivity extends ActionBarActivity {
     Button multiplyBtn;
     Button clearButton;
     Button equalBtn;
+    Button backspace;
 
     //other Variables
-    String firstNum, secondNum;
+    Boolean fNum = true;
+    String firstNum = "0";
+    String secondNum = "0";
     String operand;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +69,7 @@ public class MainActivity extends ActionBarActivity {
         minusBtn = (Button) findViewById(R.id.minusBtn);
         multiplyBtn = (Button) findViewById(R.id.multiplyBtn);
         divideBtn = (Button) findViewById(R.id.divideBtn);
+        backspace = (Button) findViewById(R.id.backspaceBtn);
 
         //All the onClickListeners for the buttons
         zeroBtn.setOnClickListener(new View.OnClickListener() {
@@ -92,21 +97,51 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 int nums = Integer.parseInt(calcArea.getText().toString());
-                if(nums == 0){
-                    calcArea.setText("2");
+                if(fNum){
+                    if(nums == 0){
+                        firstNum = "2";
+                        calcArea.setText(firstNum);
+                    }else{
+                        firstNum = calcArea.getText().toString();
+                        firstNum +="2";
+                        calcArea.setText(firstNum);
+                    }
                 }else{
-                    calcArea.setText(nums+"2");
+                    if(secondNum == "0"){
+                        secondNum="2";
+                        calcArea.setText(firstNum+" "+operand+" "+secondNum);
+                    }else{
+                        secondNum+="2";
+                        calcArea.setText(firstNum+" "+operand+" "+secondNum);
+                    }
+
+                    Toast toast = Toast.makeText(getApplicationContext(), "Need to add second number", Toast.LENGTH_LONG);
+                    toast.show();
                 }
+
             }
         });
         threeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int nums = Integer.parseInt(calcArea.getText().toString());
-                if(nums == 0){
-                    calcArea.setText("3");
-                }else{
-                    calcArea.setText(nums+"3");
+                if(fNum) {
+                    if (nums == 0) {
+                        firstNum = "3";
+                        calcArea.setText(firstNum);
+                        //calcArea.setText("3");
+                    } else {
+                        firstNum += "3";
+                        calcArea.setText(firstNum);
+                    }
+                }else {
+                    if (secondNum == "0") {
+                        secondNum = "3";
+                        calcArea.setText(firstNum + " " + operand + " " + secondNum);
+                    } else {
+                        secondNum += "3";
+                        calcArea.setText(firstNum + " " + operand + " " + secondNum);
+                    }
                 }
             }
         });
@@ -212,8 +247,21 @@ public class MainActivity extends ActionBarActivity {
         multiplyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                operand = "X";
+                if(fNum == true){
+                    firstNum = calcArea.getText().toString();
+                    fNum = false;
+                }
                 firstNum = calcArea.getText().toString();
-                operand = "multiply";
+
+            }
+        });
+
+        backspace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast t = Toast.makeText(getApplicationContext(), "Num1 " + firstNum + " Num2 "+ secondNum, Toast.LENGTH_LONG);
+                t.show();
             }
         });
 
@@ -223,6 +271,8 @@ public class MainActivity extends ActionBarActivity {
                 int answer;
                 int top = Integer.parseInt(topCalcArea.getText().toString());
                 int bottom =Integer.parseInt(calcArea.getText().toString());
+                int num1 = Integer.parseInt(firstNum);
+                int num2 = Integer.parseInt(secondNum);
                 switch(operand) {
                     case "add":
                         answer = top+bottom;
@@ -234,8 +284,8 @@ public class MainActivity extends ActionBarActivity {
                         resultsArea.setVisibility(View.VISIBLE);
                         resultsArea.setText(""+answer);
                         break;
-                    case "multiply":
-                        answer = top*bottom;
+                    case "X":
+                        answer = num1*num2;
                         resultsArea.setVisibility(View.VISIBLE);
                         resultsArea.setText(""+answer);
                         break;
@@ -259,11 +309,32 @@ public class MainActivity extends ActionBarActivity {
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fNum=true;
                 resultsArea.setText("");
                 topCalcArea.setText("");
                 calcArea.setText("0");
             }
         });
+
+        /*if(firstNum != null){
+
+
+            switch(operand) {
+                case "add":
+                    break;
+                case "subtract":
+                    break;
+                case "multiply":
+                    calcArea.setText(firstNum + " X ");
+                    break;
+                case "divide":
+                    break;
+                default:
+                    Toast toast = Toast.makeText(getApplicationContext(), "Didnt Work again", Toast.LENGTH_SHORT);
+                    toast.show();
+                    break;
+            }//End of Switch
+        }*/
     }
 
 

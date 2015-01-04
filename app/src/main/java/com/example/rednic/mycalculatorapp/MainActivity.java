@@ -32,16 +32,20 @@ public class MainActivity extends ActionBarActivity {
     Button clearButton;
     Button equalBtn;
 
+    //other Variables
+    String firstNum, secondNum;
     String operand;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //String equation;
+
         setContentView(R.layout.activity_main);
         //Calculation Areas
         calcArea = (TextView) findViewById(R.id.bottomCalcArea);
         topCalcArea = (TextView) findViewById(R.id.topCalcArea);
         resultsArea = (TextView) findViewById(R.id.result);
+
         //Links Number Buttons to xml Buttons
         zeroBtn = (Button) findViewById(R.id.zeroBtn);
         oneBtn = (Button) findViewById(R.id.oneBtn);
@@ -53,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
         sevenBtn = (Button) findViewById(R.id.sevenBtn);
         eightBtn = (Button) findViewById(R.id.eightBtn);
         nineBtn = (Button) findViewById(R.id.nineBtn);
+
         //Links Operand Buttons to xml buttons
         plusBtn = (Button) findViewById(R.id.plusBtn);
         clearButton = (Button) findViewById(R.id.clearBtn);
@@ -207,6 +212,7 @@ public class MainActivity extends ActionBarActivity {
         multiplyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                firstNum = calcArea.getText().toString();
                 operand = "multiply";
             }
         });

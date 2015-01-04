@@ -217,6 +217,8 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
+        //Operand OnClickListeners
+
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -235,12 +237,11 @@ public class MainActivity extends ActionBarActivity {
         minusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String temp = calcArea.getText().toString();
-                //topCalcArea.setText(calcArea.getText());
-                calcArea.setText(temp + " - 0");
+                topCalcArea.setText(calcArea.getText());
+                calcArea.setText("0");
                 operand= "subtract";
-                Toast toast = Toast.makeText(getApplicationContext(), "The operand is "+operand, Toast.LENGTH_SHORT);
-                toast.show();
+                //Toast toast = Toast.makeText(getApplicationContext(), "The operand is "+operand, Toast.LENGTH_SHORT);
+                //toast.show();
             }
         });
 

@@ -2,8 +2,6 @@ package com.example.rednic.mycalculatorapp;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -38,7 +36,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String equation;
+        //String equation;
         setContentView(R.layout.activity_main);
         //Calculation Areas
         calcArea = (TextView) findViewById(R.id.bottomCalcArea);
@@ -60,6 +58,8 @@ public class MainActivity extends ActionBarActivity {
         clearButton = (Button) findViewById(R.id.clearBtn);
         equalBtn = (Button) findViewById(R.id.equalButton);
         minusBtn = (Button) findViewById(R.id.minusBtn);
+        multiplyBtn = (Button) findViewById(R.id.multiplyBtn);
+        divideBtn = (Button) findViewById(R.id.divideBtn);
 
         //All the onClickListeners for the buttons
         zeroBtn.setOnClickListener(new View.OnClickListener() {
@@ -180,31 +180,34 @@ public class MainActivity extends ActionBarActivity {
         plusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int top, bottom, ans;
 
-                if(topCalcArea.getText().toString().equals("0")){
+                if(topCalcArea.getText().toString().equals("")){
                     topCalcArea.setText(calcArea.getText());
                     calcArea.setText("0");
                     operand= "add";
                 }else{
-                    top = Integer.parseInt(topCalcArea.getText().toString());
-                    bottom =Integer.parseInt(calcArea.getText().toString());
                     operand = "add";
-                    ans = top + bottom;
-                    //comment for git added more to comment to make sure git works
-                    resultsArea.setText("The answer is "+ans);
-                    //resultsArea.setVisibility(View.VISIBLE);
-                    Toast toast = Toast.makeText(getApplicationContext(), "The Answer is " + ans, Toast.LENGTH_LONG);
-                    toast.show();
                 }
             }
         });
 
+
         minusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String temp = calcArea.getText().toString();
+                //topCalcArea.setText(calcArea.getText());
+                calcArea.setText(temp + " - 0");
+                operand= "subtract";
                 Toast toast = Toast.makeText(getApplicationContext(), "The operand is "+operand, Toast.LENGTH_SHORT);
                 toast.show();
+            }
+        });
+
+        multiplyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                operand = "multiply";
             }
         });
 
@@ -214,31 +217,56 @@ public class MainActivity extends ActionBarActivity {
                 int answer;
                 int top = Integer.parseInt(topCalcArea.getText().toString());
                 int bottom =Integer.parseInt(calcArea.getText().toString());
-                if(operand.equals("add")){
-                    answer = top+bottom;
-
-                    resultsArea.setText(answer);
-                }else{
-                    Toast toast = Toast.makeText(getApplicationContext(), "Didnt Work again", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+                switch(operand) {
+                    case "add":
+                        answer = top+bottom;
+                        resultsArea.setVisibility(View.VISIBLE);
+                        resultsArea.setText(""+answer);
+                        break;
+                    case "subtract":
+                        answer = top-bottom;
+                        resultsArea.setVisibility(View.VISIBLE);
+                        resultsArea.setText(""+answer);
+                        break;
+                    case "multiply":
+                        answer = top*bottom;
+                        resultsArea.setVisibility(View.VISIBLE);
+                        resultsArea.setText(""+answer);
+                        break;
+                    case "divide":
+                        if(bottom != 0) {
+                            answer = top / bottom;
+                            resultsArea.setVisibility(View.VISIBLE);
+                            resultsArea.setText(""+answer);
+                        }else{
+                            resultsArea.setVisibility(View.VISIBLE);
+                            resultsArea.setText("Can't Divide by Zero");
+                        }
+                        break;
+                    default:
+                        Toast toast = Toast.makeText(getApplicationContext(), "Didnt Work again", Toast.LENGTH_SHORT);
+                        toast.show();
+                        break;
+                }//End of Switch
             }
         });
         clearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                resultsArea.setText("");
+                topCalcArea.setText("");
                 calcArea.setText("0");
             }
         });
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

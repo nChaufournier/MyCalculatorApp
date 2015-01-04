@@ -14,6 +14,7 @@ public class MainActivity extends ActionBarActivity {
     TextView topCalcArea;
     TextView calcArea;
     TextView resultsArea;
+
     //Number Buttons
     Button zeroBtn;
     Button oneBtn;
@@ -25,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     Button sevenBtn;
     Button eightBtn;
     Button nineBtn;
+
     //Operator Buttons
     Button plusBtn;
     Button minusBtn;
@@ -39,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
     String firstNum = "0";
     String secondNum = "0";
     String operand;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,15 +111,15 @@ public class MainActivity extends ActionBarActivity {
                     }
                 }else{
                     if(secondNum == "0"){
-                        secondNum="2";
+                        secondNum = "2";
                         calcArea.setText(firstNum+" "+operand+" "+secondNum);
                     }else{
                         secondNum+="2";
                         calcArea.setText(firstNum+" "+operand+" "+secondNum);
                     }
 
-                    Toast toast = Toast.makeText(getApplicationContext(), "Need to add second number", Toast.LENGTH_LONG);
-                    toast.show();
+                    //Toast toast = Toast.makeText(getApplicationContext(), "Need to add second number", Toast.LENGTH_LONG);
+                    //toast.show();
                 }
 
             }
@@ -316,26 +319,6 @@ public class MainActivity extends ActionBarActivity {
                 calcArea.setText("0");
             }
         });
-
-        /*if(firstNum != null){
-
-
-            switch(operand) {
-                case "add":
-                    break;
-                case "subtract":
-                    break;
-                case "multiply":
-                    calcArea.setText(firstNum + " X ");
-                    break;
-                case "divide":
-                    break;
-                default:
-                    Toast toast = Toast.makeText(getApplicationContext(), "Didnt Work again", Toast.LENGTH_SHORT);
-                    toast.show();
-                    break;
-            }//End of Switch
-        }*/
     }
 
 
